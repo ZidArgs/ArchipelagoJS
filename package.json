@@ -1,0 +1,22 @@
+{
+  "name": "archipelagojs",
+  "version": "1.0.0",
+  "description": "Client for connecting to Archipelago-Servers",
+  "author": "Denis Peters (ZidArgs)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/zidargs/archipelagojs.git"
+  },
+  "homepage": "https://bitbucket.org/zidargs/archipelagojs/src",
+  "main": "parse.js",
+  "type": "module",
+  "devDependencies": {
+    "webservice": "git+https://bitbucket.org/zidargs/webservice.git/#1.4.4"
+  },
+  "scripts": {
+    "lint": "yarn eslint .",
+    "lintfix": "yarn eslint --fix .",
+    "test": "node ./server.js"
+  }
+}
