@@ -14,7 +14,7 @@
   "homepage": "https://bitbucket.org/zidargs/archipelagojs/src",
   "type": "module",
   "devDependencies": {
-    "webservice": "git+https://bitbucket.org/zidargs/webservice.git/#1.4.4"
+    "webservice": "git+https://bitbucket.org/zidargs/webservice.git/#2.0.0"
   },
   "scripts": {
     "lint": "yarn eslint .",
