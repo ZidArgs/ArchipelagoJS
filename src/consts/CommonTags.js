@@ -26,4 +26,4 @@ export const COMMON_TAGS = {
      * an empty `game` in the {@link ConnectPacket}, `game` and `game`'s version validation will be skipped.
      */
     TEXT_ONLY: "TextOnly"
-}
+};

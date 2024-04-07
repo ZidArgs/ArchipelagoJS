@@ -68,7 +68,7 @@ export default class EventEmitter extends EventTarget {
     }
 
     #addSub(name, handler) {
-        const subs = this.#getSubs(name)
+        const subs = this.#getSubs(name);
         subs.add(handler);
     }
 

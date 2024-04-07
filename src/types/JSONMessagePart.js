@@ -50,5 +50,5 @@ export const VALID_JSON_COLOR_TYPE = {
     BLUE_BACKGROUND: "blue_bg",
     PURPLE_BACKGROUND: "purple_bg",
     CYAN_BACKGROUND: "cyan_bg",
-    WHITE_BACKGROUND: "white_bg",
+    WHITE_BACKGROUND: "white_bg"
 };

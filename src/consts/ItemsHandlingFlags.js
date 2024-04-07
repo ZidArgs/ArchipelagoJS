@@ -16,4 +16,4 @@ export const ITEMS_HANDLING_FLAGS = {
 
     /** Shorthand for `REMOTE_DIFFERENT_WORLDS`, `REMOTE_OWN_WORLD`, and `REMOTE_STARTING_INVENTORY`. */
     REMOTE_ALL: 0b111
-}
+};
