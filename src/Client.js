@@ -34,7 +34,7 @@ import {
  * The client that connects to an Archipelago server and facilitates communication, listens for events, and manages
  * data.
  */
-export class Client extends EventTarget {
+export default class Client extends EventTarget {
 
     #socket;
 

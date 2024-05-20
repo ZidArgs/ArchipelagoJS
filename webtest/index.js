@@ -1,6 +1,4 @@
-import {
-    Client
-} from "./archipelago/Client.js";
+import Client from "./archipelago/Client.js";
 import {
     SERVER_PACKET_TYPE
 } from "./archipelago/consts/CommandPacketType.js";
@@ -82,7 +80,7 @@ client.addEventListener(SERVER_PACKET_TYPE.RECEIVED_ITEMS, (event) => {
     const {items} = packet;
     for (const itemEntry of items) {
         const {item, location, player, flags} = itemEntry;
-        const itemName = client.items.name(player, item);
+        const itemName = client.items.name(slotId, item);
         const locationName = client.locations.name(player, location);
         const itemFlag = resolveItemFlag(flags);
         if (player === slotId) {
