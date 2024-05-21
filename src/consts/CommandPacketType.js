@@ -5,6 +5,7 @@
 export const SERVER_PACKET_TYPE = {
     BOUNCED: "Bounced",
     CONNECTED: "Connected",
+    DISCONNECTED: "Disconnected",
     CONNECTION_REFUSED: "ConnectionRefused",
     DATA_PACKAGE: "DataPackage",
     INVALID_PACKET: "InvalidPacket",

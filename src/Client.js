@@ -241,6 +241,7 @@ export default class Client extends EventTarget {
         this.#socket?.close();
         this.#socket = undefined;
         this.#status = CONNECTION_STATUS.DISCONNECTED;
+        this.#emitter.emit(SERVER_PACKET_TYPE.DISCONNECTED, {});
         this.#emitter.removeAllEventListeners();
 
         // Reinitialize our Managers.
@@ -291,6 +292,12 @@ export default class Client extends EventTarget {
             this.#socket.onerror = (event) => {
                 this.#status = CONNECTION_STATUS.DISCONNECTED;
                 reject([event]);
+            };
+
+            // On connection lost.
+            this.#socket.onclose = () => {
+                this.#status = CONNECTION_STATUS.DISCONNECTED;
+                this.#emitter.emit(SERVER_PACKET_TYPE.DISCONNECTED, {});
             };
         });
     }
