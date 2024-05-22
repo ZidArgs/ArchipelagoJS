@@ -104,6 +104,13 @@ export default class Client extends EventTarget {
         return null;
     }
 
+    constructor() {
+        super();
+        window.addEventListener("beforeunload", () => {
+            this.purgeConnection();
+        });
+    }
+
     /**
      * Connects to the given address with given connection information.
      *
@@ -117,6 +124,9 @@ export default class Client extends EventTarget {
         // Confirm a valid port was given.
         if (info.port < 1 || info.port > 65535 || !Number.isInteger(info.port)) {
             throw new Error(`Port must be an integer between 1 and 65535. Received: ${info.port}`);
+        }
+        if (this.#status !== CONNECTION_STATUS.DISCONNECTED) {
+            throw new Error("Already connected or in a connecting state");
         }
 
         try {
@@ -151,7 +161,7 @@ export default class Client extends EventTarget {
                 this.#emitter.addEventListener("__onRoomInfoLoaded", onDataPackageLoaded);
             });
         } catch (error) {
-            this.disconnect();
+            this.purgeConnection();
             throw error;
         }
     }
@@ -175,13 +185,22 @@ export default class Client extends EventTarget {
                 const [packet] = data;
                 this.#status = CONNECTION_STATUS.CONNECTED;
                 this.removeEventListener(SERVER_PACKET_TYPE.CONNECTED, onConnectedListener);
+
+                // On connection lost.
+                this.#socket.onclose = () => {
+                    this.#socket = undefined;
+                    this.#status = CONNECTION_STATUS.DISCONNECTED;
+                    this.#emitter.emit("SocketDisconnected", {});
+                    this.#purgeListenersAndManagers();
+                };
+
                 resolve(packet);
             }).bind(this);
 
             const onConnectionRefusedListener = ((event) => {
                 const {data} = event;
                 const [packet] = data;
-                this.disconnect();
+                this.purgeConnection();
                 reject(packet.errors);
             }).bind(this);
 
@@ -238,10 +257,28 @@ export default class Client extends EventTarget {
      * Disconnect from the server and re-initialize all managers.
      */
     disconnect() {
-        this.#socket?.close();
-        this.#socket = undefined;
-        this.#status = CONNECTION_STATUS.DISCONNECTED;
-        this.#emitter.emit(SERVER_PACKET_TYPE.DISCONNECTED, {});
+        if (this.#status !== CONNECTION_STATUS.DISCONNECTED) {
+            this.#socket.onclose = null;
+            this.#socket?.close();
+            this.#socket = undefined;
+            this.#status = CONNECTION_STATUS.DISCONNECTED;
+            this.#emitter.emit("SocketClosed", {});
+            this.#purgeListenersAndManagers();
+        }
+    }
+
+    purgeConnection() {
+        if (this.#status !== CONNECTION_STATUS.DISCONNECTED) {
+            this.#socket.onclose = null;
+            this.#socket?.close();
+            this.#socket = undefined;
+            this.#status = CONNECTION_STATUS.DISCONNECTED;
+            this.#emitter.emit("SocketDisconnected", {});
+            this.#purgeListenersAndManagers();
+        }
+    }
+
+    #purgeListenersAndManagers() {
         this.#emitter.removeAllEventListeners();
 
         // Reinitialize our Managers.
@@ -289,15 +326,9 @@ export default class Client extends EventTarget {
             };
 
             // On unsuccessful connection.
-            this.#socket.onerror = (event) => {
+            this.#socket.onerror = () => {
                 this.#status = CONNECTION_STATUS.DISCONNECTED;
-                reject([event]);
-            };
-
-            // On connection lost.
-            this.#socket.onclose = () => {
-                this.#status = CONNECTION_STATUS.DISCONNECTED;
-                this.#emitter.emit(SERVER_PACKET_TYPE.DISCONNECTED, {});
+                reject(["Failed to establish connection."]);
             };
         });
     }

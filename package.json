@@ -1,6 +1,6 @@
 {
   "name": "archipelagojs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Client for connecting to Archipelago-Servers",
   "author": "Denis Weiß (ZidArgs)",
   "license": "MIT",
