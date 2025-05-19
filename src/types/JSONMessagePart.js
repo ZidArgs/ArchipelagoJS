@@ -21,6 +21,7 @@ export const VALID_JSON_MESSAGE_TYPE = {
     LOCATION_ID: "location_id",
     LOCATION_NAME: "location_name",
     ENTRANCE_NAME: "entrance_name",
+    HINT_STATUS: "hint_status",
     COLOR: "color"
 };
 

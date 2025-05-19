@@ -48,7 +48,7 @@ export class ItemsManager {
 
             const player = this.#client.players.get(value);
             if (!player) {
-                return `Unknown Item: ${id}`;
+                return `Could not resolve game of Player '${value}' while resolving Item: ${id}`;
             }
 
             game = player.game;
@@ -56,12 +56,12 @@ export class ItemsManager {
 
         const gameData = this.#client.data.package.get(game);
         if (!gameData) {
-            return `Unknown Item: ${id}`;
+            return `Could not resolve data of Game '${game}' while resolving Item: ${id}`;
         }
 
         const name = gameData.item_id_to_name[id];
         if (!name) {
-            return `Unknown Item: ${id}`;
+            return `Could not resolve Item: ${id}`;
         }
 
         return name;

@@ -412,6 +412,6 @@ export default class Client extends EventTarget {
 /** Minimum supported version of Archipelago this library supports. */
 export const MINIMUM_SUPPORTED_AP_VERSION = {
     major: 0,
-    minor: 4,
-    build: 2
+    minor: 6,
+    build: 1
 };

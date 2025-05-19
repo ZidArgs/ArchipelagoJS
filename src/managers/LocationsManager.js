@@ -93,7 +93,7 @@ export class LocationsManager {
 
             const player = this.#client.players.get(value);
             if (!player) {
-                return `Unknown Location: ${id}`;
+                return `Could not resolve game of Player '${value}' while resolving Location: ${id}`;
             }
 
             game = player.game;
@@ -101,12 +101,12 @@ export class LocationsManager {
 
         const gameData = this.#client.data.package.get(game);
         if (!gameData) {
-            return `Unknown Location: ${id}`;
+            return `Could not resolve data of Game '${game}' while resolving Location: ${id}`;
         }
 
         const name = gameData.location_id_to_name[id];
         if (!name) {
-            return `Unknown Location: ${id}`;
+            return `Could not resolve Location: ${id}`;
         }
 
         return name;
