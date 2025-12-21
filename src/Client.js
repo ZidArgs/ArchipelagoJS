@@ -98,10 +98,7 @@ export default class Client extends EventTarget {
      * Get the URI of the current connection, including protocol.
      */
     get uri() {
-        if (this.#socket) {
-            return this.#socket.url;
-        }
-        return null;
+        return this.#socket?.url;
     }
 
     constructor() {
@@ -258,9 +255,11 @@ export default class Client extends EventTarget {
      */
     disconnect() {
         if (this.#status !== CONNECTION_STATUS.DISCONNECTED) {
-            this.#socket.onclose = null;
-            this.#socket?.close();
-            this.#socket = undefined;
+            if (this.#socket) {
+                this.#socket.onclose = null;
+                this.#socket.close();
+                this.#socket = undefined;
+            }
             this.#status = CONNECTION_STATUS.DISCONNECTED;
             this.#emitter.emit("SocketClosed", {});
             this.#purgeListenersAndManagers();
@@ -269,9 +268,11 @@ export default class Client extends EventTarget {
 
     purgeConnection() {
         if (this.#status !== CONNECTION_STATUS.DISCONNECTED) {
-            this.#socket.onclose = null;
-            this.#socket?.close();
-            this.#socket = undefined;
+            if (this.#socket) {
+                this.#socket.onclose = null;
+                this.#socket.close();
+                this.#socket = undefined;
+            }
             this.#status = CONNECTION_STATUS.DISCONNECTED;
             this.#emitter.emit("SocketDisconnected", {});
             this.#purgeListenersAndManagers();
