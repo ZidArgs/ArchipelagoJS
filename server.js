@@ -8,14 +8,4 @@ const service = new WebService(port, {enableCors});
 service.registerServiceModule(StaticService, "", {serveFolder: "./webtest"});
 service.registerServiceModule(StaticService, "/archipelago", {serveFolder: "./src"});
 
-const po = service.port.toString().padEnd(5);
-
-console.log(``);
-console.log(`╔════════════════════════════════════════╗`);
-console.log(`║ ┌╦┐ ╭────────────────────────────╮ ┌╦┐ ║`);
-console.log(`║  │  │                            │  │  ║`);
-console.log(`╠─═╬═─╡   http://localhost:${po}   ╞─═╬═─╣`);
-console.log(`║  │  │                            │  │  ║`);
-console.log(`║ └╩┘ ╰────────────────────────────╯ └╩┘ ║`);
-console.log(`╚════════════════════════════════════════╝`);
-console.log(``);
+service.printServerInfoPanel();
