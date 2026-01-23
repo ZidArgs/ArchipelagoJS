@@ -29,6 +29,8 @@ export const CLIENT_PACKET_TYPE = {
     GET: "Get",
     LOCATION_CHECKS: "LocationChecks",
     LOCATION_SCOUTS: "LocationScouts",
+    CREATE_HINTS: "CreateHints",
+    UPDATE_HINT: "UpdateHint",
     SAY: "Say",
     SET_NOTIFY: "SetNotify",
     SET: "Set",
