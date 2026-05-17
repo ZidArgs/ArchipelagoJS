@@ -1,12 +1,6 @@
-import {
-    SERVER_PACKET_TYPE
-} from "../consts/CommandPacketType.js";
-import {
-    PERMISSION
-} from "../consts/Permission.js";
-import {
-    SLOT_TYPE
-} from "../consts/SlotType.js";
+import {SERVER_PACKET_TYPE} from "../consts/CommandPacketType.js";
+import {PERMISSION} from "../consts/Permission.js";
+import {SLOT_TYPE} from "../consts/SlotType.js";
 
 /**
  * Manages and watches for events regarding session data and the data package. Most other mangers use this information
@@ -137,7 +131,10 @@ export class DataManager {
 
         if (packet.want_reply) {
             return new Promise((resolve) => {
-                this.#awaitingSetReplies.push({key: packet.key, resolve});
+                this.#awaitingSetReplies.push({
+                    key: packet.key,
+                    resolve
+                });
                 this.#client.send(packet);
             });
         } else {
@@ -263,7 +260,10 @@ export class DataManager {
 
         if (packet.players) {
             for (const player of packet.players) {
-                this.#players[player.slot] = {...this.#players[player.slot], ...player};
+                this.#players[player.slot] = {
+                    ...this.#players[player.slot],
+                    ...player
+                };
             }
         }
     }).bind(this);

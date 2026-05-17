@@ -109,9 +109,7 @@ export class ItemsManager {
         // De-sync occurred! Attempt a re-sync before continuing.
         if (packet.index > this.#index) {
             this.#index = 0;
-            this.#client.send({
-                cmd: CLIENT_PACKET_TYPE.SYNC
-            });
+            this.#client.send({cmd: CLIENT_PACKET_TYPE.SYNC});
             return;
         }
 

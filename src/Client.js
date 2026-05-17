@@ -1,34 +1,16 @@
 import EventEmitter from "./util/EventEmitter.js";
-import {
-    uuid4
-} from "./util/uuid4.js";
+import {uuid4} from "./util/uuid4.js";
 import {
     CLIENT_PACKET_TYPE, SERVER_PACKET_TYPE
 } from "./consts/CommandPacketType.js";
-import {
-    CONNECTION_STATUS
-} from "./consts/ConnectionStatus.js";
-import {
-    PRINT_JSON_TYPE
-} from "./consts/PrintJSONType.js";
-import {
-    DataManager
-} from "./managers/DataManager.js";
-import {
-    HintsManager
-} from "./managers/HintsManager.js";
-import {
-    ItemsManager
-} from "./managers/ItemsManager.js";
-import {
-    LocationsManager
-} from "./managers/LocationsManager.js";
-import {
-    PlayersManager
-} from "./managers/PlayersManager.js";
-import {
-    VALID_JSON_MESSAGE_TYPE
-} from "./types/JSONMessagePart.js";
+import {CONNECTION_STATUS} from "./consts/ConnectionStatus.js";
+import {PRINT_JSON_TYPE} from "./consts/PrintJSONType.js";
+import {DataManager} from "./managers/DataManager.js";
+import {HintsManager} from "./managers/HintsManager.js";
+import {ItemsManager} from "./managers/ItemsManager.js";
+import {LocationsManager} from "./managers/LocationsManager.js";
+import {PlayersManager} from "./managers/PlayersManager.js";
+import {VALID_JSON_MESSAGE_TYPE} from "./types/JSONMessagePart.js";
 
 /**
  * The client that connects to an Archipelago server and facilitates communication, listens for events, and manages
@@ -214,7 +196,10 @@ export default class Client extends EventTarget {
                     cmd: CLIENT_PACKET_TYPE.CONNECT,
                     game: info.game,
                     name: info.name,
-                    version: {...version, class: "Version"},
+                    version: {
+                        ...version,
+                        class: "Version"
+                    },
                     items_handling: info.items_handling,
                     uuid: info.uuid ?? uuid4(),
                     tags: info.tags ?? [],
@@ -239,7 +224,10 @@ export default class Client extends EventTarget {
      * @param message The message to send.
      */
     say(message) {
-        this.send({cmd: CLIENT_PACKET_TYPE.SAY, text: message});
+        this.send({
+            cmd: CLIENT_PACKET_TYPE.SAY,
+            text: message
+        });
     }
 
     /**
@@ -247,7 +235,10 @@ export default class Client extends EventTarget {
      * @param status The status code to send.
      */
     updateStatus(status) {
-        this.send({cmd: CLIENT_PACKET_TYPE.STATUS_UPDATE, status});
+        this.send({
+            cmd: CLIENT_PACKET_TYPE.STATUS_UPDATE,
+            status
+        });
     }
 
     /**

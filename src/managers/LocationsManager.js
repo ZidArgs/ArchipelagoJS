@@ -1,9 +1,7 @@
 import {
     CLIENT_PACKET_TYPE, SERVER_PACKET_TYPE
 } from "../consts/CommandPacketType.js";
-import {
-    CREATE_AS_HINT_MODE
-} from "../consts/CreateAsHintMode.js";
+import {CREATE_AS_HINT_MODE} from "../consts/CreateAsHintMode.js";
 
 /**
  * Manages and watches for events regarding location data and provides helper functions to make checking, scouting, or

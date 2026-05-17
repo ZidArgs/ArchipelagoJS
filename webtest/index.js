@@ -1,19 +1,9 @@
 import Client from "./archipelago/Client.js";
-import {
-    SERVER_PACKET_TYPE
-} from "./archipelago/consts/CommandPacketType.js";
-import {
-    COMMON_TAGS
-} from "./archipelago/consts/CommonTags.js";
-import {
-    CREATE_AS_HINT_MODE
-} from "./archipelago/consts/CreateAsHintMode.js";
-import {
-    ITEM_FLAGS
-} from "./archipelago/consts/ItemFlags.js";
-import {
-    ITEMS_HANDLING_FLAGS
-} from "./archipelago/consts/ItemsHandlingFlags.js";
+import {SERVER_PACKET_TYPE} from "./archipelago/consts/CommandPacketType.js";
+import {COMMON_TAGS} from "./archipelago/consts/CommonTags.js";
+import {CREATE_AS_HINT_MODE} from "./archipelago/consts/CreateAsHintMode.js";
+import {ITEM_FLAGS} from "./archipelago/consts/ItemFlags.js";
+import {ITEMS_HANDLING_FLAGS} from "./archipelago/consts/ItemsHandlingFlags.js";
 
 // Create a new Archipelago client
 const client = new Client();
@@ -63,7 +53,9 @@ client.addEventListener(SERVER_PACKET_TYPE.CONNECTED, (event) => {
     const [packet] = data;
     console.log("Connected to server: ", packet);
 
-    const {slot, checked_locations} = packet;
+    const {
+        slot, checked_locations
+    } = packet;
     slotId = slot;
     for (const location of checked_locations) {
         const name = client.locations.name(slotId, location);
@@ -79,7 +71,9 @@ client.addEventListener(SERVER_PACKET_TYPE.RECEIVED_ITEMS, (event) => {
 
     const {items} = packet;
     for (const itemEntry of items) {
-        const {item, location, player, flags} = itemEntry;
+        const {
+            item, location, player, flags
+        } = itemEntry;
         const itemName = client.items.name(slotId, item);
         const locationName = client.locations.name(player, location);
         const itemFlag = resolveItemFlag(flags);
