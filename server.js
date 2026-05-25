@@ -6,6 +6,6 @@ const port = process.argv.indexOf("-port") >= 1 ? process.argv[process.argv.inde
 
 const service = new WebService(port, {enableCors});
 service.registerServiceModule(StaticService, "", {serveFolder: "./webtest"});
-service.registerServiceModule(StaticService, "/archipelago", {serveFolder: "./src"});
+service.registerServiceModule(StaticService, "/_libs/archipelagojs", {serveFolder: "./src"});
 
 service.printServerInfoPanel();

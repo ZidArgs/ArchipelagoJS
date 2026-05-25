@@ -1,9 +1,9 @@
-import Client from "./archipelago/Client.js";
-import {SERVER_PACKET_TYPE} from "./archipelago/consts/CommandPacketType.js";
-import {COMMON_TAGS} from "./archipelago/consts/CommonTags.js";
-import {CREATE_AS_HINT_MODE} from "./archipelago/consts/CreateAsHintMode.js";
-import {ITEM_FLAGS} from "./archipelago/consts/ItemFlags.js";
-import {ITEMS_HANDLING_FLAGS} from "./archipelago/consts/ItemsHandlingFlags.js";
+import Client from "archipelagojs/Client.js";
+import {SERVER_PACKET_TYPE} from "archipelagojs/consts/CommandPacketType.js";
+import {COMMON_TAGS} from "archipelagojs/consts/CommonTags.js";
+import {CREATE_AS_HINT_MODE} from "archipelagojs/consts/CreateAsHintMode.js";
+import {ITEM_FLAGS} from "archipelagojs/consts/ItemFlags.js";
+import {ITEMS_HANDLING_FLAGS} from "archipelagojs/consts/ItemsHandlingFlags.js";
 
 // Create a new Archipelago client
 const client = new Client();
