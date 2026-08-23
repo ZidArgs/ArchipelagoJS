@@ -253,8 +253,8 @@ export default class Client extends EventTarget {
             }
             this.#status = CONNECTION_STATUS.DISCONNECTED;
             this.#emitter.emit("SocketClosed", {});
-            this.#purgeListenersAndManagers();
         }
+        this.#purgeListenersAndManagers();
     }
 
     purgeConnection() {
@@ -266,8 +266,8 @@ export default class Client extends EventTarget {
             }
             this.#status = CONNECTION_STATUS.DISCONNECTED;
             this.#emitter.emit("SocketDisconnected", {});
-            this.#purgeListenersAndManagers();
         }
+        this.#purgeListenersAndManagers();
     }
 
     #purgeListenersAndManagers() {
@@ -310,17 +310,19 @@ export default class Client extends EventTarget {
                 this.#status = CONNECTION_STATUS.WAITING_FOR_AUTH;
 
                 if (this.#socket) {
-                    this.#socket.onmessage = this.#parsePackets.bind(this);
+                    this.#socket.onmessage = (event) => {
+                        this.#parsePackets(event);
+                    };
                     resolve();
                 } else {
-                    reject(["Socket was closed unexpectedly."]);
+                    reject(new Error("Socket was closed unexpectedly."));
                 }
             };
 
             // On unsuccessful connection.
-            this.#socket.onerror = () => {
+            this.#socket.onerror = (error) => {
                 this.#status = CONNECTION_STATUS.DISCONNECTED;
-                reject(["Failed to establish connection."]);
+                reject(new Error("Failed to establish connection.", {cause: error}));
             };
         });
     }
