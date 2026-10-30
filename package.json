@@ -20,7 +20,7 @@
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@stylistic/eslint-plugin": "^5.6.1",
     "eslint": "^9.35.0",
-    "jswebservice": "https://github.com/ZidArgs/JSWebservice.git/#3.2.0"
+    "jswebservice": "https://github.com/ZidArgs/JSWebservice.git/#3.2.1"
   },
   "exports": {
     "./*": "./src/*"
